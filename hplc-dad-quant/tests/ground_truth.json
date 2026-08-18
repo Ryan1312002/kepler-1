@@ -1,0 +1,40 @@
+{
+  "units": "mg/L in the sample as received, i.e. corrected for the dilution factor",
+  "analytes": [
+    "thiamine",
+    "nicotinamide",
+    "pyridoxine",
+    "riboflavin",
+    "folic_acid"
+  ],
+  "samples": {
+    "S1": {
+      "thiamine": 18.42,
+      "nicotinamide": 96.5,
+      "pyridoxine": 22.74,
+      "riboflavin": 14.18,
+      "folic_acid": 6.85
+    },
+    "S2": {
+      "thiamine": 31.66,
+      "nicotinamide": 128.0,
+      "pyridoxine": 35.91,
+      "riboflavin": 21.57,
+      "folic_acid": 11.28
+    },
+    "S3": {
+      "thiamine": 109.24,
+      "nicotinamide": 466.0,
+      "pyridoxine": 118.52,
+      "riboflavin": 75.68,
+      "folic_acid": 37.64
+    },
+    "S4": {
+      "thiamine": 12.13,
+      "nicotinamide": 91.8,
+      "pyridoxine": 19.44,
+      "riboflavin": 6.72,
+      "folic_acid": 4.23
+    }
+  }
+}

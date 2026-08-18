@@ -1,0 +1,230 @@
+{
+  "study": "AQ-2417 water soluble vitamin premix, four retained beverage samples",
+  "detector": {
+    "type": "diode array, 10 mm flow cell",
+    "channels_nm": [
+      246,
+      254,
+      261,
+      273,
+      290,
+      324,
+      350,
+      445
+    ],
+    "signal_units": "mAU",
+    "acquisition_rate_hz": {
+      "standards": 5.0,
+      "samples": 4.0
+    },
+    "run_length_min": 12.0
+  },
+  "analytes": [
+    "thiamine",
+    "nicotinamide",
+    "pyridoxine",
+    "riboflavin",
+    "folic_acid"
+  ],
+  "internal_standard": {
+    "compound": "caffeine",
+    "concentration_mg_per_L": 40.0,
+    "note": "spiked at this concentration into every calibration mix and into every final sample solution, i.e. after any dilution step"
+  },
+  "runs": [
+    {
+      "file": "runs/blank_standards.csv",
+      "run_type": "blank",
+      "sequence": "standards",
+      "description": "diluent injection, standards sequence"
+    },
+    {
+      "file": "runs/single_thiamine.csv",
+      "run_type": "single_standard",
+      "sequence": "standards",
+      "compound": "thiamine",
+      "concentration_mg_per_L": 25.0
+    },
+    {
+      "file": "runs/single_nicotinamide.csv",
+      "run_type": "single_standard",
+      "sequence": "standards",
+      "compound": "nicotinamide",
+      "concentration_mg_per_L": 60.0
+    },
+    {
+      "file": "runs/single_pyridoxine.csv",
+      "run_type": "single_standard",
+      "sequence": "standards",
+      "compound": "pyridoxine",
+      "concentration_mg_per_L": 20.0
+    },
+    {
+      "file": "runs/single_caffeine.csv",
+      "run_type": "single_standard",
+      "sequence": "standards",
+      "compound": "caffeine",
+      "concentration_mg_per_L": 40.0
+    },
+    {
+      "file": "runs/single_folic_acid.csv",
+      "run_type": "single_standard",
+      "sequence": "standards",
+      "compound": "folic_acid",
+      "concentration_mg_per_L": 12.0
+    },
+    {
+      "file": "runs/single_riboflavin.csv",
+      "run_type": "single_standard",
+      "sequence": "standards",
+      "compound": "riboflavin",
+      "concentration_mg_per_L": 10.0
+    },
+    {
+      "file": "runs/calmix_L1.csv",
+      "run_type": "calibration_mix",
+      "sequence": "standards",
+      "level": "L1",
+      "concentrations_mg_per_L": {
+        "thiamine": 3.2,
+        "nicotinamide": 12.0,
+        "pyridoxine": 3.6,
+        "riboflavin": 2.1,
+        "folic_acid": 1.35,
+        "caffeine": 40.0
+      }
+    },
+    {
+      "file": "runs/calmix_L2.csv",
+      "run_type": "calibration_mix",
+      "sequence": "standards",
+      "level": "L2",
+      "concentrations_mg_per_L": {
+        "thiamine": 8.0,
+        "nicotinamide": 30.0,
+        "pyridoxine": 9.0,
+        "riboflavin": 5.25,
+        "folic_acid": 3.38,
+        "caffeine": 40.0
+      }
+    },
+    {
+      "file": "runs/calmix_L3.csv",
+      "run_type": "calibration_mix",
+      "sequence": "standards",
+      "level": "L3",
+      "concentrations_mg_per_L": {
+        "thiamine": 16.0,
+        "nicotinamide": 62.0,
+        "pyridoxine": 18.0,
+        "riboflavin": 10.5,
+        "folic_acid": 6.75,
+        "caffeine": 40.0
+      }
+    },
+    {
+      "file": "runs/calmix_L4.csv",
+      "run_type": "calibration_mix",
+      "sequence": "standards",
+      "level": "L4",
+      "concentrations_mg_per_L": {
+        "thiamine": 32.0,
+        "nicotinamide": 100.0,
+        "pyridoxine": 30.0,
+        "riboflavin": 18.0,
+        "folic_acid": 9.6,
+        "caffeine": 40.0
+      }
+    },
+    {
+      "file": "runs/calmix_L5.csv",
+      "run_type": "calibration_mix",
+      "sequence": "standards",
+      "level": "L5",
+      "concentrations_mg_per_L": {
+        "thiamine": 44.0,
+        "nicotinamide": 145.0,
+        "pyridoxine": 42.0,
+        "riboflavin": 25.0,
+        "folic_acid": 13.5,
+        "caffeine": 40.0
+      }
+    },
+    {
+      "file": "runs/linearity_N1.csv",
+      "run_type": "linearity_check",
+      "sequence": "standards",
+      "compound": "caffeine",
+      "concentration_mg_per_L": 5.0
+    },
+    {
+      "file": "runs/linearity_N2.csv",
+      "run_type": "linearity_check",
+      "sequence": "standards",
+      "compound": "caffeine",
+      "concentration_mg_per_L": 12.0
+    },
+    {
+      "file": "runs/linearity_N3.csv",
+      "run_type": "linearity_check",
+      "sequence": "standards",
+      "compound": "caffeine",
+      "concentration_mg_per_L": 25.0
+    },
+    {
+      "file": "runs/linearity_N4.csv",
+      "run_type": "linearity_check",
+      "sequence": "standards",
+      "compound": "caffeine",
+      "concentration_mg_per_L": 45.0
+    },
+    {
+      "file": "runs/linearity_N5.csv",
+      "run_type": "linearity_check",
+      "sequence": "standards",
+      "compound": "caffeine",
+      "concentration_mg_per_L": 70.0
+    },
+    {
+      "file": "runs/linearity_N6.csv",
+      "run_type": "linearity_check",
+      "sequence": "standards",
+      "compound": "caffeine",
+      "concentration_mg_per_L": 100.0
+    },
+    {
+      "file": "runs/blank_samples.csv",
+      "run_type": "blank",
+      "sequence": "samples",
+      "description": "diluent injection, sample sequence"
+    },
+    {
+      "file": "runs/sample_S1.csv",
+      "run_type": "sample",
+      "sequence": "samples",
+      "sample_id": "S1",
+      "dilution_factor": 1.0
+    },
+    {
+      "file": "runs/sample_S2.csv",
+      "run_type": "sample",
+      "sequence": "samples",
+      "sample_id": "S2",
+      "dilution_factor": 1.0
+    },
+    {
+      "file": "runs/sample_S3.csv",
+      "run_type": "sample",
+      "sequence": "samples",
+      "sample_id": "S3",
+      "dilution_factor": 4.0
+    },
+    {
+      "file": "runs/sample_S4.csv",
+      "run_type": "sample",
+      "sequence": "samples",
+      "sample_id": "S4",
+      "dilution_factor": 1.0
+    }
+  ]
+}

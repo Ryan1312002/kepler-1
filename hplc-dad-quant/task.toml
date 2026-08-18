@@ -1,0 +1,103 @@
+artifacts = ["/app/results.json"]
+
+[task]
+name = "afterquery/hplc-dad-quant"
+
+[metadata]
+author_name = "Ryan1312002"
+author_email = "ryan1312002@users.noreply.github.com"
+difficulty_explanation = """
+Twenty concentrations have to be right to 4 % at once, and the data set is built \
+so that five independent things each break that limit on their own. The diode \
+array is stray-light limited, so absorbance is compressed non-linearly and the \
+compression has to be inverted point by point on the raw trace before anything is \
+subtracted; a wide matrix hump that is present in the samples and absent from the \
+standards means the same analyte concentration saturates differently in the two, \
+which is what blocks the usual escape route of fitting a curved calibration line \
+through the standards. Thiamine arrives as a doublet in the samples because they \
+are dissolved in 60:40 methanol/water while the standards are in mobile phase, so \
+a peak picker reports one lobe and loses 40 % of the area. Thiamine and \
+nicotinamide are not resolved from each other or from the matrix hump at any \
+single wavelength, so the early window only comes apart spectrally. Riboflavin \
+sits on a photodegradation product that is in no standard, partially resolved, \
+and spectrally similar enough that a two-component least squares fit of that \
+window is rotationally ambiguous - the honest routes are rank annihilation \
+against riboflavin's own measured peak shape, or constrained curve resolution. On \
+top of that the injection volume wanders by several percent so the internal \
+standard is mandatory, and one sample was diluted 1 in 4. Nothing here is trivia \
+or a puzzle: every step is standard practice for an analytical chemist, but the \
+work is a long chain of dependent decisions where an error anywhere in the chain \
+is fatal, and the agent has to find the problems in the data itself, since the \
+notes only say that the early part of the sample runs "looks nothing like the \
+standards".
+"""
+solution_explanation = """
+Fit the stray-light fraction f first, from the six-level linearity series, by \
+requiring that peak areas become proportional to concentration once the traces \
+are un-mapped through T_obs = (T_true + f)/(1 + f); f comes out at 0.0185. \
+Linearise every trace with it, then subtract the linearised gradient blank of the \
+matching sequence and take out the residual drift with a local straight line \
+under each window. Read the pure spectra and retention times of the six knowns \
+off the single-compound standards. Recover the two components the standards do \
+not contain: the matrix hump from its selective leading edge in front of the \
+thiamine doublet, and the riboflavin degradation product from the riboflavin \
+window. Then solve each window channel-wise for elution profiles and integrate \
+them over time, which collects both lobes of the split thiamine peak in one \
+number and keeps the interferents out of the analyte areas; note the two \
+sequences were acquired at different data rates. Riboflavin needs more care: use \
+its measured peak shape from its own standard, shifted onto the sample, and scan \
+the subtracted amount until the residual in that window collapses to rank one \
+(rank annihilation) - the second singular value has a clean minimum at the right \
+area, and the leading singular vector there is the degradant's spectrum. \
+Calibrate on area ratios to the caffeine internal standard against the five mixed \
+standards, which also cancels the injection-volume scatter, and finally multiply \
+by each sample's dilution factor. The reference implementation lands every one of \
+the twenty numbers within 0.5 %.
+"""
+verification_explanation = """
+The verifier runs in its own container, reads only /app/results.json, and compares \
+all twenty concentrations against the values the four sample solutions were \
+actually prepared to, which live only in tests/ground_truth.json. A value passes \
+at 4.0 % relative deviation and the reward is 1 only if all twenty pass, plus the \
+schema checks (exactly the four sample ids, five analyte keys each, finite \
+positive JSON numbers). The tolerance was set from measurements, not guessed: the \
+reference chain is accurate to 0.46 % worst case, while omitting the \
+linearisation gives 12 %, an empirical quadratic calibration curve instead of the \
+photometric model gives 11 %, quantifying without the internal standard 7 %, \
+integrating only thiamine's main lobe 40 %, ignoring the degradation product 98 %, \
+ignoring the matrix hump or working from single wavelengths several hundred \
+percent, and dropping the dilution factor 75 %. Guessing is hopeless: the prepared \
+concentrations are irregular numbers spanning 4 to 490 mg/L and twenty of them \
+have to be inside a 4 % window simultaneously. There is nothing in the agent's \
+container to copy the answer from - the environment holds only the chromatograms, \
+the run manifest and the method notes - and test.sh writes a reward on every code \
+path, including a missing, malformed or non-numeric results file.
+"""
+category = "Science"
+subcategory = "Chemistry"
+tags = ["chromatography", "chemometrics", "signal-processing", "analytical-chemistry", "python"]
+expert_time_estimate_hours = 8
+relevant_experience = """
+I work on analytical method development and data work-up for liquid \
+chromatography with UV/diode-array detection, including multi-wavelength peak \
+deconvolution of co-eluting analytes, internal-standard calibration and \
+troubleshooting detector linearity and injection-solvent effects in routine QC \
+assays. This task is built from the failure modes I actually spend my time on: \
+photometric non-linearity from stray light, split peaks caused by sample diluent \
+mismatch, matrix components that are absent from the standards, and degradation \
+products that hide under an analyte peak.
+"""
+
+[verifier]
+timeout_sec = 300.0
+environment_mode = "separate"
+
+[agent]
+timeout_sec = 14400.0
+
+[environment]
+build_timeout_sec = 900.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
