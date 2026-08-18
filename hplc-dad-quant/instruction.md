@@ -37,10 +37,9 @@ numbers, not strings:
 }
 ```
 
-All twenty numbers are checked against the concentrations the solutions were
+All twenty numbers are checked against the concentrations the four bottles were
 actually made up to. A number counts as correct when it is within 4.0 % relative
-of the true value, and the job is only accepted if all twenty are correct at
-once. Four percent is a normal release limit for this kind of assay, but it is
+of that value, and the job is only accepted if all twenty are correct at once. Four percent is a normal release limit for this kind of assay, but it is
 tight enough that any effect in these data that you leave uncorrected will push
 you outside it, on at least one analyte, and that is enough to fail. There is no
 partial credit and no reward for reporting an uncertainty.

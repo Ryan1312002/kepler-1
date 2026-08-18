@@ -37,7 +37,7 @@ from scipy.optimize import minimize_scalar
 ANALYTES = ["thiamine", "nicotinamide", "pyridoxine", "riboflavin", "folic_acid"]
 INTERNAL_STANDARD = "caffeine"
 
-MATRIX_COMPONENT = "matrix_tail"
+MATRIX_COMPONENT = "matrix_hump"
 DEGRADANT_COMPONENT = "degradant"
 
 # Half width of the window used to integrate an isolated standard peak and the
@@ -208,15 +208,15 @@ def region_layout(retention: dict[str, float]) -> dict[str, tuple[float, float, 
     }
 
 
-def prepared_run(data: Dataset, run: dict, stray: float) -> tuple[np.ndarray, np.ndarray, float]:
-    """Linearised, background-corrected trace plus the run's retention shift."""
+def prepared_run(data: Dataset, run: dict, stray: float) -> tuple[np.ndarray, np.ndarray]:
+    """Linearised trace with the gradient blank of its own sequence removed."""
     t, observed = data.run(run["file"])
     blank_t, blank_raw = data.blank(run["sequence"])
     if blank_raw.shape[0] != observed.shape[0]:
         blank_raw = np.column_stack(
             [np.interp(t, blank_t, blank_raw[:, j]) for j in range(blank_raw.shape[1])]
         )
-    return t, corrected_signal(observed, blank_raw, stray), 0.0
+    return t, corrected_signal(observed, blank_raw, stray)
 
 
 def retention_shift(
@@ -235,7 +235,7 @@ def measure_run(
     extras: dict[str, dict[str, np.ndarray]] | None = None,
 ) -> dict[str, float]:
     """Integrated profile area per component for one chromatogram."""
-    t, signal, _ = prepared_run(data, run, stray)
+    t, signal = prepared_run(data, run, stray)
     shift = retention_shift(t, signal, retention)
     extras = extras or {}
 
@@ -251,7 +251,7 @@ def measure_run(
     return areas
 
 
-def matrix_tail_spectrum(
+def matrix_hump_spectrum(
     data: Dataset, stray: float, spectra: dict[str, np.ndarray], retention: dict[str, float]
 ) -> np.ndarray:
     """Spectrum of the broad matrix hump, taken off its selective leading edge.
@@ -262,7 +262,7 @@ def matrix_tail_spectrum(
     lo, hi, _ = region_layout(retention)["early"]
     total = np.zeros(len(data.channels))
     for run in data.runs_of("sample"):
-        t, signal, _ = prepared_run(data, run, stray)
+        t, signal = prepared_run(data, run, stray)
         shift = retention_shift(t, signal, retention)
         t_win, matrix = window(t, signal, lo + shift, hi + shift)
         selective = (t_win > retention["thiamine"] + shift - 0.62) & (
@@ -281,7 +281,7 @@ def standard_profile(
     onto a sample run that has drifted and resampled onto its data rate.
     """
     run = next(r for r in data.runs_of("single_standard") if r["compound"] == compound)
-    t, signal, _ = prepared_run(data, run, stray)
+    t, signal = prepared_run(data, run, stray)
     lo, hi, _ = region_layout(retention)[compound]
     t_win, matrix = window(t, signal, lo, hi)
     profile = solve_profiles(matrix, np.array([spectra[compound]]))[:, 0]
@@ -308,7 +308,7 @@ def resolve_riboflavin(
     off directly, and the leading singular vector of the residual at the optimum
     is the degradation product's spectrum.
     """
-    t, signal, _ = prepared_run(data, run, stray)
+    t, signal = prepared_run(data, run, stray)
     drift = retention_shift(t, signal, retention)
     lo, hi, _ = region_layout(retention)["riboflavin"]
     t_win, matrix = window(t, signal, lo + drift, hi + drift)
@@ -370,7 +370,7 @@ def quantify(data_dir: Path) -> dict:
     stray = fit_stray_light(data)
     spectra, retention = pure_spectra(data, stray)
     factors = response_factors(data, stray, spectra, retention)
-    matrix_spectrum = matrix_tail_spectrum(data, stray, spectra, retention)
+    matrix_spectrum = matrix_hump_spectrum(data, stray, spectra, retention)
     extras = {
         # The hump reaches into the pyridoxine window as well; carrying it there
         # keeps the local baseline error out of the pyridoxine area.

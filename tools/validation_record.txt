@@ -1,0 +1,21 @@
+stray light: fitted 0.01848, true 0.01850
+  degradant spectrum S1 max deviation 0.0768
+  degradant spectrum S2 max deviation 0.0390
+  degradant spectrum S3 max deviation 0.0081
+  degradant spectrum S4 max deviation 0.0041
+  matrix spectrum max deviation 0.0000
+  tolerance used for the PASS/fail column: +-4.0 %
+
+reference chain                      PASS  worst=    0.46% at S1/riboflavin      [+0.0 +0.0 +0.0 -0.5 -0.0 +0.2 -0.1 -0.0 -0.3 +0.0 -0.1 +0.1 +0.0 -0.1 +0.0 +0.0 +0.0 -0.0 -0.2 -0.0]
+
+no linearisation                     fail  worst=   13.14% at S4/nicotinamide    [+0.4 +10.1 +0.6 -0.2 +0.2 +0.9 +6.8 +0.1 -0.6 -0.1 +2.0 +4.8 +0.5 -0.1 +0.2 +1.1 +13.1 +0.7 +0.5 +0.3]
+blank subtracted before invert       PASS  worst=    1.72% at S4/thiamine        [-0.9 +0.4 +0.0 -0.4 +0.0 -0.6 +0.7 +0.0 -0.3 +0.0 -0.9 +1.0 +0.0 -0.1 +0.0 -1.7 +0.4 -0.0 -0.2 +0.0]
+no internal standard                 fail  worst=    7.15% at S3/folic_acid      [+0.8 +0.9 +0.9 +0.4 +1.0 -4.9 -5.1 -5.0 -5.3 -4.9 +6.8 +7.1 +7.0 +6.9 +7.1 +3.5 +3.7 +3.6 +3.3 +3.7]
+matrix hump ignored                  fail  worst= 1706.10% at S4/thiamine        [+1055.2 +38.5 -1.9 -0.5 -0.0 +695.1 +31.3 -1.3 -0.3 +0.0 +683.5 +29.7 -1.3 -0.1 +0.0 +1706.1 +43.6 -2.4 -0.2 -0.0]
+degradant ignored                    fail  worst=   97.96% at S4/riboflavin      [+0.0 +0.0 +0.0 +15.0 -0.0 +0.2 -0.1 -0.0 +17.2 +0.0 -0.1 +0.1 +0.0 +24.6 +0.0 +0.0 +0.0 -0.0 +98.0 -0.0]
+dilution factor ignored              fail  worst=   75.02% at S3/thiamine        [+0.0 +0.0 +0.0 -0.5 -0.0 +0.2 -0.1 -0.0 -0.3 +0.0 -75.0 -75.0 -75.0 -75.0 -75.0 +0.0 +0.0 -0.0 -0.2 -0.0]
+single wavelength + valley drop      fail  worst= 1709.49% at S4/thiamine        [+1060.7 +162.6 -1.9 +4.1 -0.0 +698.8 +144.4 -1.4 +4.7 -0.0 +684.6 +137.6 -1.3 +6.7 +0.0 +1709.5 +166.4 -2.5 +26.7 -0.0]
+thiamine main lobe only              fail  worst=   40.06% at S3/thiamine        [-40.0 +0.0 +0.0 -0.5 -0.0 -40.0 -0.1 -0.0 -0.3 +0.0 -40.1 +0.1 +0.0 -0.1 +0.0 -40.0 +0.0 -0.0 -0.2 -0.0]
+counts instead of time integral      PASS  worst=    0.46% at S1/riboflavin      [+0.0 +0.0 +0.0 -0.5 -0.0 +0.2 -0.1 -0.0 -0.3 +0.0 -0.1 +0.1 +0.0 -0.1 +0.0 +0.0 +0.0 -0.0 -0.2 -0.0]
+quadratic curve, no linearisation    fail  worst=   11.53% at S4/nicotinamide    [-0.3 +8.8 +0.1 -0.5 +0.0 +0.7 +8.5 +0.1 -0.6 -0.1 +1.7 +5.1 +0.2 -0.2 +0.2 +0.1 +11.5 +0.0 -0.2 +0.1]
+quadratic curve on linearised data   PASS  worst=    0.47% at S1/riboflavin      [+0.0 +0.0 +0.0 -0.5 +0.0 +0.2 -0.1 -0.0 -0.3 +0.0 -0.1 +0.1 +0.0 -0.1 +0.0 +0.0 +0.0 -0.0 -0.2 +0.0]

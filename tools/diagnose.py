@@ -71,7 +71,7 @@ def variant(
 
         extras: dict[str, dict[str, np.ndarray]] = {}
         if include_matrix:
-            hump = analyze.matrix_tail_spectrum(data, f, spectra, retention)
+            hump = analyze.matrix_hump_spectrum(data, f, spectra, retention)
             extras = {
                 "early": {analyze.MATRIX_COMPONENT: hump},
                 "pyridoxine": {analyze.MATRIX_COMPONENT: hump},
@@ -154,7 +154,7 @@ def single_channel_areas(data, run, stray, retention) -> dict[str, float]:
         "folic_acid": 3,
         "riboflavin": 7,
     }
-    t, signal, _ = analyze.prepared_run(data, run, stray)
+    t, signal = analyze.prepared_run(data, run, stray)
     shift = analyze.retention_shift(t, signal, retention)
     layout = analyze.region_layout(retention)
     areas = {}
@@ -176,7 +176,7 @@ def single_channel_areas(data, run, stray, retention) -> dict[str, float]:
 
 def main_lobe_area(data, run, stray, spectra, retention, extras) -> float:
     """Thiamine from its tallest lobe only, as a peak picker would report it."""
-    t, signal, _ = analyze.prepared_run(data, run, stray)
+    t, signal = analyze.prepared_run(data, run, stray)
     shift = analyze.retention_shift(t, signal, retention)
     lo, hi, knowns = analyze.region_layout(retention)["early"]
     t_win, matrix = analyze.window(t, signal, lo + shift, hi + shift)

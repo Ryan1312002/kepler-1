@@ -10,28 +10,28 @@
   "samples": {
     "S1": {
       "thiamine": 18.42,
-      "nicotinamide": 96.5,
+      "nicotinamide": 94.83,
       "pyridoxine": 22.74,
       "riboflavin": 14.18,
       "folic_acid": 6.85
     },
     "S2": {
       "thiamine": 31.66,
-      "nicotinamide": 128.0,
+      "nicotinamide": 131.42,
       "pyridoxine": 35.91,
       "riboflavin": 21.57,
       "folic_acid": 11.28
     },
     "S3": {
       "thiamine": 109.24,
-      "nicotinamide": 466.0,
+      "nicotinamide": 473.44,
       "pyridoxine": 118.52,
       "riboflavin": 75.68,
       "folic_acid": 37.64
     },
     "S4": {
       "thiamine": 12.13,
-      "nicotinamide": 91.8,
+      "nicotinamide": 89.17,
       "pyridoxine": 19.44,
       "riboflavin": 6.72,
       "folic_acid": 4.23
